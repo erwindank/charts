@@ -248,8 +248,8 @@ function getStats() {
 
     const totalPlays = data.reduce((sum, item) => sum + item.plays, 0);
     const uniqueSongs = aggregated.length;
-    const uniqueArtists = new Set(data.map(item => item.artist.toLowerCase())).size;
-    const uniqueAlbums = new Set(data.map(item => item.album.toLowerCase())).size;
+    const uniqueArtists = new Set(data.map(item => item.artist?.toLowerCase() || '')).size;
+    const uniqueAlbums = new Set(data.map(item => item.album?.toLowerCase() || '').filter(album => album)).size;
 
     return {
         totalPlays,

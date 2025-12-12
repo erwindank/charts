@@ -103,7 +103,7 @@ Someone Like You,89,10 Dec 2025, 09:15,Adele,21</pre>
             const song = {
                 song: formData.get('song'),
                 artist: formData.get('artist'),
-                album: formData.get('album') || 'Unknown Album',
+                album: formData.get('album') || '',
                 plays: parseInt(formData.get('plays')),
                 datetime: new Date(formData.get('datetime')).toISOString()
             };
