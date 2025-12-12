@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Charts - Add Music</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="charts.html">Charts</a></li>
+            <li><a href="add.html" class="active">Add Music</a></li>
+            <li><a href="references.html">References</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Add Music Data</h1>
+
+        <!-- Manual Entry Form -->
+        <section class="card">
+            <h2>Manual Entry</h2>
+            <form id="manualForm" onsubmit="handleManualSubmit(event)">
+                <div class="form-group">
+                    <label for="song">Song Title *</label>
+                    <input type="text" id="song" name="song" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="artist">Artist *</label>
+                    <input type="text" id="artist" name="artist" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="album">Album</label>
+                    <input type="text" id="album" name="album">
+                </div>
+
+                <div class="form-group">
+                    <label for="plays">Number of Plays *</label>
+                    <input type="number" id="plays" name="plays" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="datetime">Date and Time *</label>
+                    <input type="datetime-local" id="datetime" name="datetime" required>
+                </div>
+
+                <button type="submit">Add Song</button>
+            </form>
+        </section>
+
+        <!-- File Upload -->
+        <section class="card">
+            <h2>Upload CSV or JSON File</h2>
+            
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                <p>Click to select a file or drag and drop</p>
+                <p style="color: var(--text-tertiary); font-size: 0.875rem;">Supports CSV and JSON files</p>
+            </div>
+            
+            <input type="file" id="fileInput" accept=".csv,.json" style="display: none;" onchange="handleFileSelect(event)">
+
+            <div style="margin-top: 2rem;">
+                <h3>CSV Format Example:</h3>
+                <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 4px; overflow-x: auto; color: var(--text-secondary);">song,plays,datetime,artist,album
+Shape of You,145,11 Dec 2025 20:52,Ed Sheeran,Divide
+Blinding Lights,230,12 Dec 2025 14:30,The Weeknd,After Hours
+Someone Like You,89,10 Dec 2025 09:15,Adele,21</pre>
+
+                <h3>JSON Format Example:</h3>
+                <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 4px; overflow-x: auto; color: var(--text-secondary);">[
+  {
+    "song": "Shape of You",
+    "plays": 145,
+    "datetime": "11 Dec 2025, 20:52",
+    "artist": "Ed Sheeran",
+    "album": "Divide"
+  }
+]</pre>
+            </div>
+        </section>
+
+        <div class="button-group">
+            <button onclick="goToDashboard()">📊 View Dashboard</button>
+            <button onclick="goToCharts()" class="button-secondary">📈 View Charts</button>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Set default datetime to current
+        document.getElementById('datetime').value = new Date().toISOString().slice(0, 16);
+
+        // Handle manual form submission
+        function handleManualSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const song = {
+                song: formData.get('song'),
+                artist: formData.get('artist'),
+                album: formData.get('album') || 'Unknown Album',
+                plays: parseInt(formData.get('plays')),
+                datetime: new Date(formData.get('datetime')).toISOString()
+            };
+
+            if (addSongs([song])) {
+                showAlert('Song added successfully!', 'success');
+                event.target.reset();
+                document.getElementById('datetime').value = new Date().toISOString().slice(0, 16);
+            } else {
+                showAlert('Error adding song. Please try again.', 'error');
+            }
+        }
+
+        // Handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const content = e.target.result;
+                processFileContent(content, file.name);
+            };
+
+            reader.onerror = function() {
+                showAlert('Error reading file. Please try again.', 'error');
+            };
+
+            reader.readAsText(file);
+        }
+
+        // Process file content
+        function processFileContent(content, filename) {
+            try {
+                let songs = [];
+                
+                if (filename.endsWith('.csv')) {
+                    songs = parseCSV(content);
+                } else if (filename.endsWith('.json')) {
+                    const parsed = JSON.parse(content);
+                    songs = Array.isArray(parsed) ? parsed : [parsed];
+                }
+
+                if (songs.length === 0) {
+                    showAlert('No valid data found in file.', 'error');
+                    return;
+                }
+
+                // Filter out any songs with Excel errors
+                const validSongs = songs.filter(song => !isExcelError(song));
+                const filteredCount = songs.length - validSongs.length;
+
+                if (addSongs(validSongs)) {
+                    let message = `Successfully imported ${validSongs.length} song(s)!`;
+                    if (filteredCount > 0) {
+                        message += ` (${filteredCount} entries with errors were filtered out)`;
+                    }
+                    showAlert(message, 'success');
+                    
+                    // Clear file input
+                    document.getElementById('fileInput').value = '';
+                } else {
+                    showAlert('Error saving songs. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Error processing file:', error);
+                showAlert('Error processing file: ' + error.message, 'error');
+            }
+        }
+
+        // Drag and drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.name.endsWith('.csv') || file.name.endsWith('.json')) {
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    document.getElementById('fileInput').files = dataTransfer.files;
+                    handleFileSelect({ target: { files: [file] } });
+                } else {
+                    showAlert('Please upload a CSV or JSON file.', 'error');
+                }
+            }
+        });
+
+        // Navigation functions
+        function goToDashboard() {
+            window.location.href = 'index.html';
+        }
+
+        function goToCharts() {
+            window.location.href = 'charts.html';
+        }
+    </script>
+</body>
+</html>
