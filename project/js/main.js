@@ -38,7 +38,7 @@ async function loadData() {
         return !excelErrors.some(error => 
             entry.song.includes(error) || 
             entry.artist.includes(error) || 
-            entry.album.includes(error)
+            (entry.album && entry.album.includes(error))
         );
     });
     
@@ -182,6 +182,7 @@ function convertDateTimeToISO(dateTimeStr) {
         // Parse format: "11 Dec 2025, 20:52"
         const parts = dateTimeStr.split(',');
         if (parts.length !== 2) {
+            console.warn('Invalid datetime format (missing comma):', dateTimeStr);
             return new Date().toISOString();
         }
         
@@ -191,6 +192,7 @@ function convertDateTimeToISO(dateTimeStr) {
         // Parse date: "11 Dec 2025"
         const dateComponents = datePart.split(' ');
         if (dateComponents.length !== 3) {
+            console.warn('Invalid date format:', datePart);
             return new Date().toISOString();
         }
         
@@ -219,12 +221,13 @@ function convertDateTimeToISO(dateTimeStr) {
         // Validate by creating a Date object
         const date = new Date(isoString);
         if (isNaN(date.getTime())) {
+            console.warn('Parsed datetime is invalid:', isoString);
             return new Date().toISOString();
         }
         
         return isoString;
     } catch (error) {
-        console.error('Error converting datetime:', error);
+        console.error('Error converting datetime:', dateTimeStr, error);
         return new Date().toISOString();
     }
 }
@@ -342,7 +345,10 @@ function formatDateTime(isoString) {
     
     try {
         const date = new Date(isoString);
-        if (isNaN(date.getTime())) return 'Invalid Date';
+        if (isNaN(date.getTime())) {
+            console.warn('Invalid datetime for formatting:', isoString);
+            return 'Invalid Date';
+        }
         
         const options = {
             year: 'numeric',
@@ -354,7 +360,7 @@ function formatDateTime(isoString) {
         
         return date.toLocaleString('en-US', options);
     } catch (error) {
-        console.error('Error formatting datetime:', error);
+        console.error('Error formatting datetime:', isoString, error);
         return 'N/A';
     }
 }

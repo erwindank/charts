@@ -165,9 +165,19 @@ function handleFileUpload(file) {
             if (isCSV) {
                 entries = parseCSVText(content);
             } else if (isJSON) {
-                entries = JSON.parse(content);
-                if (!Array.isArray(entries)) {
+                const parsed = JSON.parse(content);
+                if (!Array.isArray(parsed)) {
                     throw new Error('JSON file must contain an array');
+                }
+                // Validate that each entry has required fields
+                entries = parsed.filter(entry => {
+                    return entry && 
+                           typeof entry === 'object' && 
+                           entry.song && 
+                           entry.artist;
+                });
+                if (entries.length !== parsed.length) {
+                    console.warn(`Filtered out ${parsed.length - entries.length} invalid entries from JSON`);
                 }
             }
             
