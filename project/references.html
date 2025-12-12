@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Charts - References</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="charts.html">Charts</a></li>
+            <li><a href="add.html">Add Music</a></li>
+            <li><a href="references.html" class="active">References</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>References & Documentation</h1>
+
+        <section class="card">
+            <h2>About This Project</h2>
+            <p>This is a music charts website that allows you to track and analyze your music listening data. The application stores data locally in your browser using localStorage, making it fast and privacy-friendly.</p>
+        </section>
+
+        <section class="card">
+            <h2>Features</h2>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li>Dashboard with statistics and recent plays</li>
+                <li>Dynamic charts with Top 10, 20, or 100 songs</li>
+                <li>Manual data entry via form</li>
+                <li>Bulk import via CSV or JSON files</li>
+                <li>Automatic data aggregation by song and artist</li>
+                <li>Excel error filtering (#NAME?, #VALUE!, etc.)</li>
+                <li>Datetime format conversion</li>
+                <li>Data export functionality</li>
+                <li>Responsive design for mobile and desktop</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Data Format</h2>
+            <h3>Required Fields</h3>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li><strong>song</strong>: The title of the song</li>
+                <li><strong>artist</strong>: The artist name</li>
+                <li><strong>plays</strong>: Number of plays (numeric)</li>
+                <li><strong>datetime</strong>: When the song was played</li>
+                <li><strong>album</strong>: The album name (optional)</li>
+            </ul>
+
+            <h3>Supported Date Formats</h3>
+            <p>The application automatically converts the following datetime format:</p>
+            <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 4px; color: var(--accent-primary);">11 Dec 2025, 20:52</pre>
+            <p>This is converted to ISO 8601 format for consistent storage and sorting.</p>
+        </section>
+
+        <section class="card">
+            <h2>CSV File Format</h2>
+            <p>When uploading CSV files, ensure the first row contains headers. The application supports the following format:</p>
+            <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 4px; overflow-x: auto; color: var(--text-secondary);">song,plays,datetime,artist,album
+Shape of You,145,11 Dec 2025, 20:52,Ed Sheeran,Divide
+Blinding Lights,230,12 Dec 2025, 14:30,The Weeknd,After Hours
+Someone Like You,89,10 Dec 2025, 09:15,Adele,21</pre>
+        </section>
+
+        <section class="card">
+            <h2>JSON File Format</h2>
+            <p>JSON files should contain an array of song objects:</p>
+            <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 4px; overflow-x: auto; color: var(--text-secondary);">[
+  {
+    "song": "Shape of You",
+    "plays": 145,
+    "datetime": "11 Dec 2025, 20:52",
+    "artist": "Ed Sheeran",
+    "album": "Divide"
+  },
+  {
+    "song": "Blinding Lights",
+    "plays": 230,
+    "datetime": "12 Dec 2025, 14:30",
+    "artist": "The Weeknd",
+    "album": "After Hours"
+  }
+]</pre>
+        </section>
+
+        <section class="card">
+            <h2>Data Aggregation</h2>
+            <p>The application automatically aggregates plays by combining songs with the same title and artist. This means if you have multiple entries for "Shape of You" by "Ed Sheeran", they will be combined into a single chart entry with the total plays summed up.</p>
+            <p>Example:</p>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li>Entry 1: "Shape of You" by "Ed Sheeran" - 145 plays</li>
+                <li>Entry 2: "Shape of You" by "Ed Sheeran" - 89 plays</li>
+                <li>Result: "Shape of You" by "Ed Sheeran" - 234 total plays</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Excel Error Filtering</h2>
+            <p>The application automatically filters out entries that contain Excel errors. The following error types are detected and removed:</p>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li>#NAME? - Name error</li>
+                <li>#VALUE! - Value error</li>
+                <li>#REF! - Reference error</li>
+                <li>#DIV/0! - Division by zero error</li>
+                <li>#N/A - Not available error</li>
+                <li>#NULL! - Null error</li>
+                <li>#NUM! - Number error</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Technologies Used</h2>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li><strong>HTML5</strong>: Semantic markup</li>
+                <li><strong>CSS3</strong>: Responsive design with CSS Grid and Flexbox</li>
+                <li><strong>Vanilla JavaScript</strong>: No frameworks or libraries</li>
+                <li><strong>localStorage API</strong>: Client-side data persistence</li>
+                <li><strong>Google Fonts</strong>: Inter and Roboto font families</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Design</h2>
+            <h3>Color Scheme</h3>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li><strong>Background</strong>: #0D0D0D (Dark black)</li>
+                <li><strong>Accent</strong>: #7AE3FF (Cyan blue)</li>
+                <li><strong>Secondary Background</strong>: #1A1A1A</li>
+                <li><strong>Text</strong>: White and gray variants</li>
+            </ul>
+
+            <h3>Typography</h3>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li><strong>Primary Font</strong>: Inter</li>
+                <li><strong>Secondary Font</strong>: Roboto</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Privacy & Data Storage</h2>
+            <p>All your music data is stored locally in your browser using localStorage. This means:</p>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li>Your data never leaves your device</li>
+                <li>No server-side storage or tracking</li>
+                <li>Data persists between sessions</li>
+                <li>Clearing browser data will remove all stored information</li>
+                <li>Data is specific to this browser and device</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Browser Compatibility</h2>
+            <p>This application works best on modern browsers that support:</p>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li>HTML5</li>
+                <li>CSS3 (Grid, Flexbox, Variables)</li>
+                <li>ES6+ JavaScript</li>
+                <li>localStorage API</li>
+                <li>File API</li>
+            </ul>
+            <p>Recommended browsers: Chrome, Firefox, Safari, Edge (latest versions)</p>
+        </section>
+
+        <section class="card">
+            <h2>Tips & Best Practices</h2>
+            <ul style="list-style: inside; color: var(--text-secondary); line-height: 2;">
+                <li>Regularly export your data as a backup</li>
+                <li>Use consistent naming for artists and songs</li>
+                <li>Clean your data before importing to avoid duplicates</li>
+                <li>Check for Excel errors in your source files</li>
+                <li>Use the correct datetime format for accurate sorting</li>
+                <li>Monitor localStorage usage (typically 5-10MB limit)</li>
+            </ul>
+        </section>
+
+        <div class="button-group">
+            <button onclick="window.location.href='index.html'">📊 Go to Dashboard</button>
+            <button onclick="window.location.href='add.html'" class="button-secondary">➕ Add Music</button>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+</body>
+</html>

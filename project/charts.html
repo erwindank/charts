@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Charts - Top Charts</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="charts.html" class="active">Charts</a></li>
+            <li><a href="add.html">Add Music</a></li>
+            <li><a href="references.html">References</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Music Charts</h1>
+        
+        <div class="card">
+            <h2>Select Chart Size</h2>
+            <div class="toggle-group">
+                <button class="toggle-button active" data-limit="10" onclick="changeLimit(10)">Top 10</button>
+                <button class="toggle-button" data-limit="20" onclick="changeLimit(20)">Top 20</button>
+                <button class="toggle-button" data-limit="100" onclick="changeLimit(100)">Top 100</button>
+            </div>
+        </div>
+
+        <section class="card">
+            <h2 id="chartTitle">Top 10 Songs by Total Plays</h2>
+            <div id="chartsContainer">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📊</div>
+                    <p>No chart data available. Add some music to see the charts!</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="button-group">
+            <button onclick="refreshCharts()">🔄 Refresh Charts</button>
+            <button onclick="exportChartData()" class="button-secondary">📥 Export Chart Data</button>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script>
+        let currentLimit = 10;
+
+        // Load charts on page load
+        function loadCharts() {
+            const aggregated = aggregateData();
+            const topSongs = aggregated.slice(0, currentLimit);
+            const container = document.getElementById('chartsContainer');
+            const title = document.getElementById('chartTitle');
+
+            title.textContent = `Top ${currentLimit} Songs by Total Plays`;
+
+            if (topSongs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📊</div>
+                        <p>No chart data available. Add some music to see the charts!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<table><thead><tr>';
+            html += '<th>Rank</th>';
+            html += '<th>Song</th>';
+            html += '<th>Artist</th>';
+            html += '<th>Album</th>';
+            html += '<th>Total Plays</th>';
+            html += '<th>Times Played</th>';
+            html += '</tr></thead><tbody>';
+
+            topSongs.forEach((item, index) => {
+                const timesPlayed = item.playHistory.length;
+                html += '<tr>';
+                html += `<td class="rank">#${index + 1}</td>`;
+                html += `<td>${escapeHtml(item.song)}</td>`;
+                html += `<td>${escapeHtml(item.artist)}</td>`;
+                html += `<td>${escapeHtml(item.album)}</td>`;
+                html += `<td>${formatNumber(item.totalPlays)}</td>`;
+                html += `<td>${timesPlayed}</td>`;
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+
+            // Show total songs message if less than limit
+            if (topSongs.length < currentLimit && aggregated.length > 0) {
+                html += `<p style="margin-top: 1rem; color: var(--text-secondary); text-align: center;">
+                    Showing all ${aggregated.length} songs (less than top ${currentLimit})
+                </p>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function changeLimit(limit) {
+            currentLimit = limit;
+
+            // Update active button
+            document.querySelectorAll('.toggle-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-limit="${limit}"]`).classList.add('active');
+
+            // Reload charts
+            loadCharts();
+        }
+
+        function refreshCharts() {
+            loadCharts();
+            showAlert('Charts refreshed successfully!', 'success');
+        }
+
+        function exportChartData() {
+            const aggregated = aggregateData();
+            const topSongs = aggregated.slice(0, currentLimit);
+            
+            const json = JSON.stringify(topSongs, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `top-${currentLimit}-charts-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showAlert('Chart data exported successfully!', 'success');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load charts on page load
+        document.addEventListener('DOMContentLoaded', loadCharts);
+    </script>
+</body>
+</html>

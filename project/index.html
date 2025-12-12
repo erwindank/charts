@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Charts - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Dashboard</a></li>
+            <li><a href="charts.html">Charts</a></li>
+            <li><a href="add.html">Add Music</a></li>
+            <li><a href="references.html">References</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Music Charts Dashboard</h1>
+        
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalPlays">0</div>
+                <div class="stat-label">Total Plays</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uniqueSongs">0</div>
+                <div class="stat-label">Unique Songs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uniqueArtists">0</div>
+                <div class="stat-label">Unique Artists</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uniqueAlbums">0</div>
+                <div class="stat-label">Unique Albums</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Recent Plays</h2>
+            <div id="recentPlaysContainer">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🎵</div>
+                    <p>No plays recorded yet. Add some music data to get started!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Top 10 Songs</h2>
+            <div id="topSongsContainer">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🎤</div>
+                    <p>No songs in the charts yet.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="button-group">
+            <button onclick="refreshData()">🔄 Refresh Data</button>
+            <button onclick="exportData()" class="button-secondary">📥 Export JSON</button>
+            <button onclick="clearAllData()" class="button-secondary">🗑️ Clear All Data</button>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Load and display data on page load
+        function loadDashboard() {
+            const stats = getStats();
+            
+            // Update statistics
+            document.getElementById('totalPlays').textContent = formatNumber(stats.totalPlays);
+            document.getElementById('uniqueSongs').textContent = formatNumber(stats.uniqueSongs);
+            document.getElementById('uniqueArtists').textContent = formatNumber(stats.uniqueArtists);
+            document.getElementById('uniqueAlbums').textContent = formatNumber(stats.uniqueAlbums);
+
+            // Load recent plays
+            loadRecentPlays();
+
+            // Load top songs
+            loadTopSongs();
+        }
+
+        function loadRecentPlays() {
+            const recentPlays = getRecentPlays(20);
+            const container = document.getElementById('recentPlaysContainer');
+
+            if (recentPlays.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎵</div>
+                        <p>No plays recorded yet. Add some music data to get started!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<table><thead><tr>';
+            html += '<th>Song</th>';
+            html += '<th>Artist</th>';
+            html += '<th>Album</th>';
+            html += '<th>Plays</th>';
+            html += '<th>Date/Time</th>';
+            html += '</tr></thead><tbody>';
+
+            recentPlays.forEach(item => {
+                html += '<tr>';
+                html += `<td>${escapeHtml(item.song)}</td>`;
+                html += `<td>${escapeHtml(item.artist)}</td>`;
+                html += `<td>${escapeHtml(item.album)}</td>`;
+                html += `<td>${formatNumber(item.plays)}</td>`;
+                html += `<td>${formatDate(item.datetime)}</td>`;
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function loadTopSongs() {
+            const topSongs = aggregateData().slice(0, 10);
+            const container = document.getElementById('topSongsContainer');
+
+            if (topSongs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎤</div>
+                        <p>No songs in the charts yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<table><thead><tr>';
+            html += '<th>Rank</th>';
+            html += '<th>Song</th>';
+            html += '<th>Artist</th>';
+            html += '<th>Album</th>';
+            html += '<th>Total Plays</th>';
+            html += '</tr></thead><tbody>';
+
+            topSongs.forEach((item, index) => {
+                html += '<tr>';
+                html += `<td class="rank">#${index + 1}</td>`;
+                html += `<td>${escapeHtml(item.song)}</td>`;
+                html += `<td>${escapeHtml(item.artist)}</td>`;
+                html += `<td>${escapeHtml(item.album)}</td>`;
+                html += `<td>${formatNumber(item.totalPlays)}</td>`;
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function refreshData() {
+            loadDashboard();
+            showAlert('Data refreshed successfully!', 'success');
+        }
+
+        function exportData() {
+            const json = exportJSON();
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `music-charts-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showAlert('Data exported successfully!', 'success');
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                clearData();
+                loadDashboard();
+                showAlert('All data cleared successfully!', 'success');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load dashboard on page load
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>
