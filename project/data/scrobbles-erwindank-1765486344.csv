@@ -1,51 +1,51 @@
 song,plays,datetime,artist,album
-Blinding Lights,1,11 Dec 2025, 20:52,The Weeknd,After Hours
-Levitating,1,11 Dec 2025, 21:15,Dua Lipa,Future Nostalgia
-Save Your Tears,1,11 Dec 2025, 21:42,The Weeknd,After Hours
-Good 4 U,1,11 Dec 2025, 22:10,Olivia Rodrigo,SOUR
-Peaches,1,11 Dec 2025, 22:35,Justin Bieber,Justice
-drivers license,1,11 Dec 2025, 23:00,Olivia Rodrigo,SOUR
-Montero (Call Me By Your Name),1,11 Dec 2025, 23:25,Lil Nas X,Montero
-Stay,1,11 Dec 2025, 23:50,The Kid LAROI & Justin Bieber,Stay
-Kiss Me More,1,12 Dec 2025, 00:15,Doja Cat ft. SZA,Planet Her
-Industry Baby,1,12 Dec 2025, 00:40,Lil Nas X & Jack Harlow,Montero
-Blinding Lights,1,12 Dec 2025, 01:05,The Weeknd,After Hours
-Levitating,1,12 Dec 2025, 01:30,Dua Lipa,Future Nostalgia
-Heat Waves,1,12 Dec 2025, 01:55,Glass Animals,Dreamland
-Shivers,1,12 Dec 2025, 02:20,Ed Sheeran,=
-Bad Habits,1,12 Dec 2025, 02:45,Ed Sheeran,=
-Astronaut In The Ocean,1,12 Dec 2025, 03:10,Masked Wolf,Astronaut In The Ocean
-Beggin',1,12 Dec 2025, 03:35,Måneskin,Teatro d'ira: Vol. I
-Cold Heart,1,12 Dec 2025, 04:00,Elton John & Dua Lipa,The Lockdown Sessions
-Essence,1,12 Dec 2025, 04:25,Wizkid ft. Tems,Made in Lagos
-Easy On Me,1,12 Dec 2025, 04:50,Adele,30
-Blinding Lights,1,12 Dec 2025, 05:15,The Weeknd,After Hours
-Heat Waves,1,12 Dec 2025, 05:40,Glass Animals,Dreamland
-Good 4 U,1,12 Dec 2025, 06:05,Olivia Rodrigo,SOUR
-Stay,1,12 Dec 2025, 06:30,The Kid LAROI & Justin Bieber,Stay
-Levitating,1,12 Dec 2025, 06:55,Dua Lipa,Future Nostalgia
-Blinding Lights,1,12 Dec 2025, 07:20,The Weeknd,After Hours
-Save Your Tears,1,12 Dec 2025, 07:45,The Weeknd,After Hours
-Mood,1,12 Dec 2025, 08:10,24kGoldn ft. iann dior,El Dorado
-Positions,1,12 Dec 2025, 08:35,Ariana Grande,Positions
-"Therefore I Am",1,12 Dec 2025, 09:00,Billie Eilish,Therefore I Am
-Willow,1,12 Dec 2025, 09:25,Taylor Swift,evermore
-Blinding Lights,1,12 Dec 2025, 09:50,The Weeknd,After Hours
-Heat Waves,1,12 Dec 2025, 10:15,Glass Animals,Dreamland
-Good 4 U,1,12 Dec 2025, 10:40,Olivia Rodrigo,SOUR
-Levitating,1,12 Dec 2025, 11:05,Dua Lipa,Future Nostalgia
-Save Your Tears,1,12 Dec 2025, 11:30,The Weeknd,After Hours
-Blinding Lights,1,12 Dec 2025, 11:55,The Weeknd,After Hours
-Heat Waves,1,12 Dec 2025, 12:20,Glass Animals,Dreamland
-Good 4 U,1,12 Dec 2025, 12:45,Olivia Rodrigo,SOUR
-Levitating,1,12 Dec 2025, 13:10,Dua Lipa,Future Nostalgia
-Blinding Lights,1,12 Dec 2025, 13:35,The Weeknd,After Hours
-Heat Waves,1,12 Dec 2025, 14:00,Glass Animals,Dreamland
-Good 4 U,1,12 Dec 2025, 14:25,Olivia Rodrigo,SOUR
-Levitating,1,12 Dec 2025, 14:50,Dua Lipa,Future Nostalgia
-Save Your Tears,1,12 Dec 2025, 15:15,The Weeknd,After Hours
-Blinding Lights,1,12 Dec 2025, 15:40,The Weeknd,After Hours
-Heat Waves,1,12 Dec 2025, 16:05,Glass Animals,Dreamland
-Good 4 U,1,12 Dec 2025, 16:30,Olivia Rodrigo,SOUR
-Levitating,1,12 Dec 2025, 16:55,Dua Lipa,Future Nostalgia
-Blinding Lights,1,12 Dec 2025, 17:20,The Weeknd,After Hours
+Blinding Lights,1,"11 Dec 2025, 20:52",The Weeknd,After Hours
+Levitating,1,"11 Dec 2025, 21:15",Dua Lipa,Future Nostalgia
+Save Your Tears,1,"11 Dec 2025, 21:42",The Weeknd,After Hours
+Good 4 U,1,"11 Dec 2025, 22:10",Olivia Rodrigo,SOUR
+Peaches,1,"11 Dec 2025, 22:35",Justin Bieber,Justice
+drivers license,1,"11 Dec 2025, 23:00",Olivia Rodrigo,SOUR
+Montero (Call Me By Your Name),1,"11 Dec 2025, 23:25",Lil Nas X,Montero
+Stay,1,"11 Dec 2025, 23:50",The Kid LAROI & Justin Bieber,Stay
+Kiss Me More,1,"12 Dec 2025, 00:15",Doja Cat ft. SZA,Planet Her
+Industry Baby,1,"12 Dec 2025, 00:40",Lil Nas X & Jack Harlow,Montero
+Blinding Lights,1,"12 Dec 2025, 01:05",The Weeknd,After Hours
+Levitating,1,"12 Dec 2025, 01:30",Dua Lipa,Future Nostalgia
+Heat Waves,1,"12 Dec 2025, 01:55",Glass Animals,Dreamland
+Shivers,1,"12 Dec 2025, 02:20",Ed Sheeran,=
+Bad Habits,1,"12 Dec 2025, 02:45",Ed Sheeran,=
+Astronaut In The Ocean,1,"12 Dec 2025, 03:10",Masked Wolf,Astronaut In The Ocean
+Beggin',1,"12 Dec 2025, 03:35",Måneskin,Teatro d'ira: Vol. I
+Cold Heart,1,"12 Dec 2025, 04:00",Elton John & Dua Lipa,The Lockdown Sessions
+Essence,1,"12 Dec 2025, 04:25",Wizkid ft. Tems,Made in Lagos
+Easy On Me,1,"12 Dec 2025, 04:50",Adele,30
+Blinding Lights,1,"12 Dec 2025, 05:15",The Weeknd,After Hours
+Heat Waves,1,"12 Dec 2025, 05:40",Glass Animals,Dreamland
+Good 4 U,1,"12 Dec 2025, 06:05",Olivia Rodrigo,SOUR
+Stay,1,"12 Dec 2025, 06:30",The Kid LAROI & Justin Bieber,Stay
+Levitating,1,"12 Dec 2025, 06:55",Dua Lipa,Future Nostalgia
+Blinding Lights,1,"12 Dec 2025, 07:20",The Weeknd,After Hours
+Save Your Tears,1,"12 Dec 2025, 07:45",The Weeknd,After Hours
+Mood,1,"12 Dec 2025, 08:10",24kGoldn ft. iann dior,El Dorado
+Positions,1,"12 Dec 2025, 08:35",Ariana Grande,Positions
+"Therefore I Am",1,"12 Dec 2025, 09:00",Billie Eilish,Therefore I Am
+Willow,1,"12 Dec 2025, 09:25",Taylor Swift,evermore
+Blinding Lights,1,"12 Dec 2025, 09:50",The Weeknd,After Hours
+Heat Waves,1,"12 Dec 2025, 10:15",Glass Animals,Dreamland
+Good 4 U,1,"12 Dec 2025, 10:40",Olivia Rodrigo,SOUR
+Levitating,1,"12 Dec 2025, 11:05",Dua Lipa,Future Nostalgia
+Save Your Tears,1,"12 Dec 2025, 11:30",The Weeknd,After Hours
+Blinding Lights,1,"12 Dec 2025, 11:55",The Weeknd,After Hours
+Heat Waves,1,"12 Dec 2025, 12:20",Glass Animals,Dreamland
+Good 4 U,1,"12 Dec 2025, 12:45",Olivia Rodrigo,SOUR
+Levitating,1,"12 Dec 2025, 13:10",Dua Lipa,Future Nostalgia
+Blinding Lights,1,"12 Dec 2025, 13:35",The Weeknd,After Hours
+Heat Waves,1,"12 Dec 2025, 14:00",Glass Animals,Dreamland
+Good 4 U,1,"12 Dec 2025, 14:25",Olivia Rodrigo,SOUR
+Levitating,1,"12 Dec 2025, 14:50",Dua Lipa,Future Nostalgia
+Save Your Tears,1,"12 Dec 2025, 15:15",The Weeknd,After Hours
+Blinding Lights,1,"12 Dec 2025, 15:40",The Weeknd,After Hours
+Heat Waves,1,"12 Dec 2025, 16:05",Glass Animals,Dreamland
+Good 4 U,1,"12 Dec 2025, 16:30",Olivia Rodrigo,SOUR
+Levitating,1,"12 Dec 2025, 16:55",Dua Lipa,Future Nostalgia
+Blinding Lights,1,"12 Dec 2025, 17:20",The Weeknd,After Hours
