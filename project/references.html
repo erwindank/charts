@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="References, credits, and technical documentation">
+    <title>References - My 2025 Music Listening Charts</title>
+    
+    <!-- Preload Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="site-title">My 2025 Music Listening Charts</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="charts.html">Charts</a></li>
+                    <li><a href="add.html">Add Entry</a></li>
+                    <li><a href="references.html">References</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Title -->
+        <section class="hero">
+            <h1>References & Credits</h1>
+            <p>Technical documentation, fonts, colors, and resources used in this project.</p>
+        </section>
+        
+        <!-- References Grid -->
+        <div class="references-grid">
+            <!-- Typography -->
+            <section class="reference-section">
+                <h3>Typography</h3>
+                <ul>
+                    <li>
+                        <strong>Inter</strong> - Used for headings and display text
+                        <br><a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener">Google Fonts - Inter</a>
+                    </li>
+                    <li>
+                        <strong>Roboto</strong> - Used for body text and UI elements
+                        <br><a href="https://fonts.google.com/specimen/Roboto" target="_blank" rel="noopener">Google Fonts - Roboto</a>
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Color Palette -->
+            <section class="reference-section">
+                <h3>Color Palette</h3>
+                <ul>
+                    <li>
+                        <span class="color-swatch" style="background-color: #0D0D0D;"></span>
+                        <strong>Background Primary:</strong> #0D0D0D - Deep black background
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #1E1E1E;"></span>
+                        <strong>Background Secondary:</strong> #1E1E1E - Panel and card backgrounds
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #EDEDED;"></span>
+                        <strong>Text Primary:</strong> #EDEDED - Main text color
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #B3B3B3;"></span>
+                        <strong>Text Secondary:</strong> #B3B3B3 - Subtle text and metadata
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #7AE3FF;"></span>
+                        <strong>Accent:</strong> #7AE3FF - Cyan blue accent color
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #5DD4F0;"></span>
+                        <strong>Accent Hover:</strong> #5DD4F0 - Accent hover state
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #4CAF50;"></span>
+                        <strong>Success:</strong> #4CAF50 - Success messages
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #F44336;"></span>
+                        <strong>Error:</strong> #F44336 - Error messages
+                    </li>
+                    <li>
+                        <span class="color-swatch" style="background-color: #FF9800;"></span>
+                        <strong>Warning:</strong> #FF9800 - Warning messages
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Technical Resources -->
+            <section class="reference-section">
+                <h3>Technical Resources</h3>
+                <ul>
+                    <li>
+                        <strong>HTML5</strong> - Semantic markup with modern standards
+                    </li>
+                    <li>
+                        <strong>CSS3</strong> - Custom properties, Flexbox, and Grid layout
+                    </li>
+                    <li>
+                        <strong>Vanilla JavaScript</strong> - No frameworks, pure ES6+ features
+                    </li>
+                    <li>
+                        <strong>localStorage API</strong> - Client-side data persistence
+                    </li>
+                    <li>
+                        <strong>File API</strong> - CSV and JSON file processing
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Design Features -->
+            <section class="reference-section">
+                <h3>Design Features</h3>
+                <ul>
+                    <li>
+                        <strong>Responsive Design</strong> - Mobile-first approach with breakpoints at 600px, 900px, and 1200px
+                    </li>
+                    <li>
+                        <strong>Dark Theme</strong> - Eye-friendly dark color scheme for extended viewing
+                    </li>
+                    <li>
+                        <strong>Smooth Animations</strong> - CSS transitions and keyframe animations
+                    </li>
+                    <li>
+                        <strong>Accessibility</strong> - Semantic HTML and proper contrast ratios
+                    </li>
+                    <li>
+                        <strong>Performance</strong> - Font preloading and lazy loading where applicable
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Data Handling -->
+            <section class="reference-section">
+                <h3>Data Handling</h3>
+                <ul>
+                    <li>
+                        <strong>CSV Format:</strong> song,plays,datetime,artist,album
+                    </li>
+                    <li>
+                        <strong>DateTime Format:</strong> "11 Dec 2025, 20:52" (converted to ISO 8601)
+                    </li>
+                    <li>
+                        <strong>Excel Error Filtering:</strong> Removes #NAME?, #REF!, #VALUE!, etc.
+                    </li>
+                    <li>
+                        <strong>Song Aggregation:</strong> Combines entries by song + artist combination
+                    </li>
+                    <li>
+                        <strong>XSS Prevention:</strong> All user-generated content is escaped
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Browser Support -->
+            <section class="reference-section">
+                <h3>Browser Support</h3>
+                <ul>
+                    <li>Chrome 90+ (fully supported)</li>
+                    <li>Firefox 88+ (fully supported)</li>
+                    <li>Safari 14+ (fully supported)</li>
+                    <li>Edge 90+ (fully supported)</li>
+                    <li>Modern mobile browsers (iOS Safari, Chrome Mobile)</li>
+                </ul>
+            </section>
+            
+            <!-- License & Credits -->
+            <section class="reference-section">
+                <h3>License & Credits</h3>
+                <ul>
+                    <li>
+                        <strong>Project:</strong> My 2025 Music Listening Charts
+                    </li>
+                    <li>
+                        <strong>Year:</strong> 2025
+                    </li>
+                    <li>
+                        <strong>Purpose:</strong> Personal music listening tracking and visualization
+                    </li>
+                    <li>
+                        <strong>Data Source:</strong> CSV exports and manual entry
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My Music Listening Charts. All rights reserved.</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateActiveNav('references.html');
+        });
+    </script>
+</body>
+</html>

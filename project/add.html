@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add music listening entries manually or via file upload">
+    <title>Add Entry - My 2025 Music Listening Charts</title>
+    
+    <!-- Preload Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="site-title">My 2025 Music Listening Charts</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="charts.html">Charts</a></li>
+                    <li><a href="add.html">Add Entry</a></li>
+                    <li><a href="references.html">References</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Title -->
+        <section class="hero">
+            <h1>Add Music Entries</h1>
+            <p>Add your listening data manually or import from CSV/JSON files.</p>
+        </section>
+        
+        <!-- Manual Entry Form -->
+        <section id="manual-entry">
+            <h2>Manual Entry</h2>
+            <div id="manual-message-container"></div>
+            <div class="form-container">
+                <form id="manual-entry-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="song">Song Name <span class="required">*</span></label>
+                            <input type="text" id="song" name="song" required placeholder="Enter song name">
+                        </div>
+                        <div class="form-group">
+                            <label for="artist">Artist <span class="required">*</span></label>
+                            <input type="text" id="artist" name="artist" required placeholder="Enter artist name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="album">Album (Optional)</label>
+                            <input type="text" id="album" name="album" placeholder="Enter album name">
+                        </div>
+                        <div class="form-group">
+                            <label for="plays">Play Count <span class="required">*</span></label>
+                            <input type="number" id="plays" name="plays" required min="1" value="1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date <span class="required">*</span></label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time <span class="required">*</span></label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Add Entry</button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- File Upload Section -->
+        <section id="file-upload">
+            <h2>File Upload</h2>
+            <div id="file-message-container"></div>
+            <div class="form-container">
+                <div id="file-upload-area" class="file-upload-area">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drop CSV or JSON file here</h3>
+                    <p>or click to browse</p>
+                    <p id="file-name" style="color: var(--accent); margin-top: 1rem;"></p>
+                    <input type="file" id="file-input" accept=".csv,.json">
+                </div>
+                
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button id="toggle-format-btn" class="btn btn-secondary">Show Format Examples</button>
+                </div>
+                
+                <div id="format-example" class="format-example">
+                    <h4>CSV Format</h4>
+                    <pre>song,plays,datetime,artist,album
+Song Name,5,11 Dec 2025, 20:52,Artist Name,Album Name
+Another Song,3,12 Dec 2025, 14:30,Another Artist,Another Album</pre>
+                    
+                    <h4 style="margin-top: 1rem;">JSON Format</h4>
+                    <pre>[
+  {
+    "song": "Song Name",
+    "artist": "Artist Name",
+    "album": "Album Name",
+    "plays": 5,
+    "datetime": "2025-12-11T20:52:00.000Z"
+  }
+]</pre>
+                </div>
+                
+                <!-- Import Summary -->
+                <div id="import-summary-section" style="display: none;">
+                    <div class="import-summary">
+                        <h4>Import Summary</h4>
+                        <div class="summary-stats">
+                            <div class="summary-stat">
+                                <div class="summary-value" id="success-count">0</div>
+                                <div class="stat-label">Success</div>
+                            </div>
+                            <div class="summary-stat">
+                                <div class="summary-value" id="error-count">0</div>
+                                <div class="stat-label">Errors</div>
+                            </div>
+                            <div class="summary-stat">
+                                <div class="summary-value" id="total-count">0</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                        </div>
+                        <div class="btn-group" style="margin-top: 1.5rem;">
+                            <a href="index.html" class="btn btn-secondary">View Statistics</a>
+                            <a href="charts.html" class="btn">View Charts</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Recently Added Entries -->
+        <section id="recent-entries">
+            <h2>Recently Added</h2>
+            <div id="recent-entries-list">
+                <div class="loading">Loading recent entries...</div>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button id="check-data-btn" class="btn btn-secondary">Check Saved Data</button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My Music Listening Charts. All rights reserved.</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/add.js"></script>
+</body>
+</html>
