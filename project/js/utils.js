@@ -20,11 +20,26 @@ function parseCSV(csvText) {
         // Handle CSV with commas inside quoted fields
         const values = parseCSVLine(line);
         
-        if (values.length !== headers.length) continue;
+        // Skip if we don't have enough values or too many
+        if (values.length < headers.length) continue;
+        
+        // If we have more values than headers, it might be due to unquoted commas in data
+        // For our datetime format "11 Dec 2025, 20:52", we need to handle this specially
+        if (values.length > headers.length) {
+            // Find datetime column index
+            const datetimeIndex = headers.indexOf('datetime');
+            if (datetimeIndex >= 0 && values.length === headers.length + 1) {
+                // Merge the extra value into datetime
+                values[datetimeIndex] = values[datetimeIndex] + ',' + values[datetimeIndex + 1];
+                values.splice(datetimeIndex + 1, 1);
+            } else {
+                continue; // Skip invalid lines
+            }
+        }
 
         const obj = {};
         headers.forEach((header, index) => {
-            obj[header] = values[index].trim();
+            obj[header] = values[index] ? values[index].trim() : '';
         });
 
         // Filter out Excel errors
@@ -164,14 +179,16 @@ function saveData(data) {
 function addSongs(songs) {
     const currentData = loadData();
     
-    // Normalize and convert datetime for new songs
-    const normalizedSongs = songs.map(song => ({
-        song: song.song || '',
-        plays: parseInt(song.plays) || 0,
-        datetime: convertToISO(song.datetime),
-        artist: song.artist || '',
-        album: song.album || ''
-    }));
+    // Normalize and convert datetime for new songs, filter out invalid entries
+    const normalizedSongs = songs
+        .map(song => ({
+            song: song.song || '',
+            plays: parseInt(song.plays) || 0,
+            datetime: convertToISO(song.datetime),
+            artist: song.artist || '',
+            album: song.album || ''
+        }))
+        .filter(song => song.song && song.artist); // Only keep songs with title and artist
 
     const updatedData = [...currentData, ...normalizedSongs];
     return saveData(updatedData);
