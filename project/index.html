@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My 2025 Music Listening Charts - Track and visualize your music listening statistics">
+    <title>My 2025 Music Listening Charts</title>
+    
+    <!-- Preload Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="site-title">My 2025 Music Listening Charts</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="charts.html">Charts</a></li>
+                    <li><a href="add.html">Add Entry</a></li>
+                    <li><a href="references.html">References</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to My Music Listening Charts</h1>
+            <p>Track, analyze, and visualize your music listening habits for 2025. 
+               Discover your most played songs, favorite artists, and listening patterns.</p>
+        </section>
+        
+        <!-- Statistics Cards -->
+        <section id="statistics">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="total-plays">0</span>
+                    <span class="stat-label">Total Plays</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="unique-songs">0</span>
+                    <span class="stat-label">Unique Songs</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="unique-artists">0</span>
+                    <span class="stat-label">Unique Artists</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="total-entries">0</span>
+                    <span class="stat-label">Total Entries</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Recent Plays -->
+        <section id="recent-plays">
+            <h2>Recent Plays</h2>
+            <div id="recent-plays-list">
+                <div class="loading">Loading recent plays...</div>
+            </div>
+        </section>
+        
+        <!-- Action Buttons -->
+        <section class="text-center">
+            <div class="btn-group">
+                <a href="charts.html" class="btn">View Charts</a>
+                <a href="add.html" class="btn btn-secondary">Add Entries</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My Music Listening Charts. All rights reserved.</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize home page
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Home page initializing...');
+            updateActiveNav('index.html');
+            
+            try {
+                // Load data
+                const data = await loadData();
+                console.log('Data loaded:', data.length, 'entries');
+                
+                // Calculate and display statistics
+                const stats = getStats(data);
+                
+                document.getElementById('total-plays').textContent = formatNumber(stats.totalPlays);
+                document.getElementById('unique-songs').textContent = formatNumber(stats.uniqueSongs);
+                document.getElementById('unique-artists').textContent = formatNumber(stats.uniqueArtists);
+                document.getElementById('total-entries').textContent = formatNumber(stats.totalEntries);
+                
+                // Display recent plays
+                displayRecentPlays(data);
+                
+            } catch (error) {
+                console.error('Error initializing home page:', error);
+            }
+        });
+        
+        /**
+         * Display recent plays
+         * @param {Array} data - All data
+         */
+        function displayRecentPlays(data) {
+            const container = document.getElementById('recent-plays-list');
+            
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No plays recorded yet</p>
+                        <p>Add some entries or upload a CSV file to get started!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by datetime (most recent first)
+            const sorted = [...data].sort((a, b) => {
+                const dateA = new Date(a.datetime || 0);
+                const dateB = new Date(b.datetime || 0);
+                return dateB - dateA;
+            });
+            
+            // Get top 5 recent plays
+            const recentPlays = sorted.slice(0, 5);
+            
+            let html = '<div class="recent-plays">';
+            
+            recentPlays.forEach(play => {
+                html += `
+                    <div class="play-item">
+                        <div class="play-header">
+                            <span class="play-song">${escapeHtml(play.song)}</span>
+                            <span class="play-count">${formatNumber(play.plays)} plays</span>
+                        </div>
+                        <div class="play-artist">${escapeHtml(play.artist)}</div>
+                        <div class="play-meta">
+                            ${play.album ? `<span>📀 ${escapeHtml(play.album)}</span>` : ''}
+                            <span>🕒 ${formatDateTime(play.datetime)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

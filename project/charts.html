@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View your top songs charts - Top 10, 20, or 100">
+    <title>Charts - My 2025 Music Listening Charts</title>
+    
+    <!-- Preload Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="site-title">My 2025 Music Listening Charts</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="charts.html">Charts</a></li>
+                    <li><a href="add.html">Add Entry</a></li>
+                    <li><a href="references.html">References</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Title -->
+        <section class="hero">
+            <h1>Music Charts</h1>
+            <p>Explore your most played songs. Toggle between Top 10, Top 20, or Top 100.</p>
+        </section>
+        
+        <!-- Toggle Buttons -->
+        <section>
+            <div class="toggle-buttons">
+                <button id="top-10-btn" class="toggle-btn active">Top 10</button>
+                <button id="top-20-btn" class="toggle-btn">Top 20</button>
+                <button id="top-100-btn" class="toggle-btn">Top 100</button>
+            </div>
+        </section>
+        
+        <!-- Chart Container -->
+        <section id="chart-section">
+            <div id="chart-container">
+                <div class="loading">Loading chart data...</div>
+            </div>
+        </section>
+        
+        <!-- Action Buttons -->
+        <section class="text-center mt-3">
+            <div class="btn-group">
+                <a href="index.html" class="btn btn-secondary">Back to Home</a>
+                <a href="add.html" class="btn">Add More Entries</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My Music Listening Charts. All rights reserved.</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="scripts/charts.js"></script>
+</body>
+</html>
